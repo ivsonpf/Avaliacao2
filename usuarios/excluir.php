@@ -1,6 +1,17 @@
 <?php
 require_once __DIR__ . '/../config.php';
+require_once BASE_PATH .'/src/usuario_crud.php';
 
+$id = $_GET['id'];
+
+$usuario = buscarUsuarioSenha($conexao, $id);
+
+if (isset($_GET['confirmar'])) {
+    if(excluirUsuario($conexao,$id)){    
+    header("Location: listar.php?msg=exluido");
+    exit;
+    }
+}
 
 $titulo = "Excluir Usuário |";
 require_once BASE_PATH . '/includes/cabecalho.php';

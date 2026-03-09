@@ -1,8 +1,25 @@
 <?php
 require_once __DIR__ . '/../config.php';
+require_once BASE_PATH .'/src/usuario_crud.php';
 
+$id = $_GET['id'];
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $id_form = $_POST['id'];
+    $nome = $_POST['nome'];
+    $email = $_POST['email'];
+    $senha = $_POST['senha'];
+
+    if (atualizarUsuario($conexao, $id_form, $nome, $email, $senha)) {
+        header("Location: listar.php?msg=sucesso");
+        exit;
+    }
+}
+
+$usuario = buscarUsuarioSenha($conexao, $id);
 
 $titulo = "Editar Usuário |";
+
 require_once BASE_PATH . '/includes/cabecalho.php';
 ?>
 
